@@ -1,3 +1,4 @@
+from functools import reduce
 import os, time
 
 
@@ -13,7 +14,7 @@ DATASET_PATH = f"tests\\data"
 
 
 #Leer el archivo txt para almacenar los valores en una lista de lista
-def cargar_variable(batallas, nombre_de_archivo):
+def leer_batallas(batallas, nombre_de_archivo):
     #Abrir archivo 
     try:
         batallas_archivo = open(nombre_de_archivo, "r")
@@ -33,52 +34,27 @@ def cargar_variable(batallas, nombre_de_archivo):
     batallas_archivo.close()
     
 
-def minimizar_tiempos(batallas):
-
-    #crea un vector donde se van a almacenar los tiempos, y peso de las batallas
-    vector_tiempos = []
-    vector_peso = []
-    
-    #lee linea por linea del archivo separando los numeros de t_i y b_i por la "," y los almacena en los vectores de arriba
-    for batalla in batallas:
-        vector_tiempos.append(int(batalla[TIEMPO]))
-        vector_peso.append(int(batalla[PESO]))
-        
-    #crea un vector donde se van a sumar todos los tiempos
-    vector_tiempos_sumado = []
-    acumulador = 0
-
-    #se suman todos los tiempos de la forma t1, t1+t2, t1+t2+t3 ... hasta el ultimo sumando t1+t2+t_i y los almacena en el vector tiempos sumados
-    for i in range(0, len(vector_tiempos)):
-        acumulador += int(vector_tiempos[i])
-        vector_tiempos_sumado.append(acumulador)
-        
-    #crea el vector donde se van a multiplicar el t_i y b_i
-    vector_final = []
-    
-    #multiplica todos los t_i y b_i, ahora los t_i son de la forma t1, t1+t2, etc
-    for i in range(0, len(vector_tiempos_sumado)):
-        vector_final.append(int(vector_tiempos_sumado[i]) * int(vector_peso[i]))
-    
-    suma = 0
-    
-    #suma todos los numeros almacenados en el vector final
-    for i in range(0, len(vector_final)):
-        suma += int(vector_final[i])
-    
-    #devuelve la suma
-    return suma
+def obtener_suma_ponderada(batallas):
+    tiempo = [0]
+    def obtener_producto(batalla):
+        tiempo[0] += int(batalla[TIEMPO])
+        return int(tiempo[0]) * int(batalla[PESO])
+    return reduce(
+        lambda b1, b2: b1 + b2,
+        map(obtener_producto, batallas),
+        0
+    )
 
 
 #Ordenar la lista segun sea la relacion t_i / b_i
-def ordenar_batallas(elementos):
-    return sorted(elementos, key=lambda e: int(e[TIEMPO])/int(e[PESO]))
+def ordenar_batallas(batallas):
+    return sorted(batallas, key=lambda e: int(e[TIEMPO])/int(e[PESO]))
 
 
-def batallas_greedy(elementos):
-    elementos_ord = ordenar_batallas(elementos)
-
-    return minimizar_tiempos(elementos_ord), elementos_ord
+def batallas_greedy(batallas):
+    batallas_ordenadas = ordenar_batallas(batallas)
+    suma_ponderada = obtener_suma_ponderada(batallas_ordenadas)
+    return suma_ponderada, batallas_ordenadas
 
 
 def escribir_resultados(batallas_path, batallas_ordenadas):
@@ -97,12 +73,12 @@ def escribir_resultados(batallas_path, batallas_ordenadas):
 
 def tp1_batallas_solver(batallas_path):
     batallas = []
-    cargar_variable(batallas, batallas_path)
+    leer_batallas(batallas, batallas_path)
     suma_ponderada, batallas_ordenadas = batallas_greedy(batallas)
     return suma_ponderada, batallas_ordenadas
 
 
-def solve_batallas_problem(data_filepath):
+def resolver_problema_batallas(data_filepath):
     start_time = time.time()
     suma_ponderada, batallas_ordenadas = tp1_batallas_solver(data_filepath)
     end_time = time.time()
@@ -114,7 +90,7 @@ def solve_batallas_problem(data_filepath):
 
 def main():
     try:
-        dataset = sorted( \
+        archivos_batallas = sorted( \
             os.listdir(DATASET_PATH), \
             key = lambda x: int(x.split(".txt")[0]) \
         )
@@ -124,12 +100,12 @@ def main():
 
     batallas = []
 
-    for filename in dataset:
-        suma_ponderada, tiempo = solve_batallas_problem(f"{DATASET_PATH}\\{filename}")
-        batallas.append((filename.split(".")[0], tiempo))
+    for nombre_archivo in archivos_batallas:
+        suma_ponderada, tiempo = resolver_problema_batallas(f"{DATASET_PATH}\\{nombre_archivo}")
+        batallas.append((nombre_archivo.split(".")[0], tiempo))
 
         print(f"El orden de las batallas resuelto está \
-              en el archivo {filename} y la suma ponderada \
+              en el archivo {nombre_archivo} y la suma ponderada \
               de los tiempos de finalización es: {suma_ponderada}")
     
     print("batallas,time_in_seconds")
