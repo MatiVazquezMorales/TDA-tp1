@@ -19,8 +19,12 @@ def write_to_file(x, pairs):
 
     with file as f:
         f.write("T_i,B_i\n")
-        for pair in pairs:
-            f.write(f"{pair[0]},{pair[1]}\n")
+        p = len(pairs)
+        for i in range(p):
+            to_write = f"{pairs[i][0]},{pairs[i][1]}"
+            if i < (p - 1):
+                to_write += "\n"
+            f.write(to_write)
 
 def main():
     amounts = [   10,    50,   100,   500,  1000,   2500, 5000,
