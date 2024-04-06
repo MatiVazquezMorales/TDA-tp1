@@ -1,2 +1,9 @@
 generated
 __pycache__
+tests/data/10_solved.txt
+tests/data/50_solved.txt
+tests/data/100_solved.txt
+tests/data/1000_solved.txt
+tests/data/5000_solved.txt
+tests/data/10000_solved.txt
+tests/data/100000_solved.txt

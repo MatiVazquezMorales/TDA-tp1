@@ -8,8 +8,8 @@ SEPARADOR_BATALLAS = ","
 HEADER_BATALLAS = "T_i,B_i"
 
 # "generated" -> using generator.py
-DATASET_PATH = "generated"
-#DATASET_PATH = f"tests\\data"
+# DATASET_PATH = "generated"
+DATASET_PATH = f"tests\\data"
 
 
 #Leer el archivo txt para almacenar los valores en una lista de lista
