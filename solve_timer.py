@@ -13,7 +13,7 @@ def main():
     try:
         dataset = os.listdir(DATASET_PATH)
     except:
-        print("Could not find generated data folder. First run generator.py")
+        print("Could not find dataset folder.")
         return
     
     print(f"batallas_amount,time_in_seconds")
