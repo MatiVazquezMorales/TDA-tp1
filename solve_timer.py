@@ -1,12 +1,15 @@
-import os, time
-from tp1 import tp1_batallas_solver
+import os, time, math
+from tp1 import tp1_batallas_solver, escribir_resultados
 
 DATASET_PATH = "generated"
 
-def solve_batallas_problem(dataset_filepath):
+def solve_batallas_problem(data_filepath):
     start_time = time.time()
-    suma_ponderada = tp1_batallas_solver(dataset_filepath)
+    suma_ponderada, batallas_ordenadas = tp1_batallas_solver(data_filepath)
     end_time = time.time()
+
+    escribir_resultados(data_filepath, batallas_ordenadas)
+
     return suma_ponderada, (end_time - start_time)
 
 def main():

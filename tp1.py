@@ -1,7 +1,3 @@
-#CONSTANTES
-import os
-
-
 TIEMPO = 0
 PESO = 1
 BATALLAS = "batallas.txt"
@@ -91,13 +87,11 @@ def tp1_batallas_solver(batallas_path):
     batallas = []
     cargarVariable(batallas, batallas_path)
     suma_ponderada, batallas_ordenadas = batallas_greedy(batallas)
-
-    escribir_resultados(batallas_path, batallas_ordenadas)
-
-    return suma_ponderada
+    return suma_ponderada, batallas_ordenadas
 
 def main():
-    suma_ponderada = tp1_batallas_solver(BATALLAS)
+    suma_ponderada, batallas_ordenadas = tp1_batallas_solver(BATALLAS)
+    escribir_resultados(BATALLAS, batallas_ordenadas)
     print(f"El orden de las batallas que se tienen que hacer estan en el archivo {BATALLAS} y el tiempo es: {suma_ponderada}")
 
 #main

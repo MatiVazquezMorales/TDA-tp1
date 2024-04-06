@@ -29,12 +29,12 @@ def write_to_file(x, pairs):
             f.write(to_write)
 
 def main():
-    amounts = [   10,    50,   100,   500,  1000,   2500, 5000,
-                7500, 10000, 15000, 20000, 50000, 100000        ]
+    amounts = [10, 20, 40, 80, 160, 320, 640, 1280, 2560, 5120, 10240]
     for a in amounts:
-        random_pairs = generate_random_pairs(a)
-        write_to_file(a, random_pairs)
-        print(f"{a} pairs of random numbers have been generated and written to {a}.txt.")
+        a_ = a * 1000
+        random_pairs = generate_random_pairs(a_)
+        write_to_file(a_, random_pairs)
+        print(f"{a_} pairs of random numbers have been generated and written to {a_}.txt.")
 
 if __name__ == "__main__":
     main()
