@@ -1,7 +1,7 @@
 import os, time
 from tp1 import tp1_batallas_solver
 
-GENERATED_DATA_PATH = "generated"
+DATASET_PATH = "generated"
 
 def solve_batallas_problem(dataset_filepath):
     start_time = time.time()
@@ -11,7 +11,7 @@ def solve_batallas_problem(dataset_filepath):
 
 def main():
     try:
-        datasets = os.listdir(GENERATED_DATA_PATH)
+        dataset = os.listdir(DATASET_PATH)
     except:
         print("Could not find generated data folder. First run generator.py")
         return
@@ -20,9 +20,9 @@ def main():
 
     batallas = []
 
-    for d in datasets:
-        suma, time = solve_batallas_problem(f"{GENERATED_DATA_PATH}\\{d}")
-        batallas.append((d.split(".")[0], time))
+    for filename in dataset:
+        suma, time = solve_batallas_problem(f"{DATASET_PATH}\\{filename}")
+        batallas.append((filename.split(".")[0], time))
     
     for b in sorted(batallas, key=lambda x: int(x[0])):
         print(f"{b[0]},{b[1]}")

@@ -1,5 +1,7 @@
 import random, os
 
+GENERATED_DATA_PATH = "generated"
+
 def generate_random_pairs(x):
     pairs = []
     for _ in range(x):
@@ -9,13 +11,13 @@ def generate_random_pairs(x):
 
 def write_to_file(x, pairs):
     try:
-        file = open(f'generated\\{x}.txt', 'w')
+        file = open(f'{GENERATED_DATA_PATH}\\{x}.txt', 'w')
     except FileNotFoundError:
         absolute_path = os.path.dirname(__file__)
-        relative_path = "generated"
+        relative_path = GENERATED_DATA_PATH
         full_path = os.path.join(absolute_path, relative_path)
         os.mkdir(full_path)
-        file = open(f'generated\\{x}.txt', 'w')
+        file = open(f'{GENERATED_DATA_PATH}\\{x}.txt', 'w')
 
     with file as f:
         f.write("T_i,B_i\n")
