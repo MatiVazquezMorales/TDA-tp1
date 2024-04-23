@@ -38,6 +38,8 @@ Exploramos cómo los principios de los algoritmos greedy se aplican en este cont
 
 En este análisis se va a poner en cuenta como pensamos, planteamos y solucionamos el ejercicio del Trabajo Práctico. Empezamos planteando diferentes ideas y formas, tomando como ejemplo los archivos .TXT dados por la cátedra, planteamos diferentes formas para intentar llegar a los resultados esperados utilizando la sumatoria de
 
+∑_(i=1)^n▒〖T_i*B_i 〗
+
 1. utilizar el orden de los archivos .TXT.
 2. ordenar por de manera ascendente.
 3. ordenar por de manera descendente
@@ -48,16 +50,21 @@ sin llegar al resultado esperado.
 
 El algoritmo pensado para resolver fue utilizar la misma forma que el problema de la mochila de RPL, en donde plantea que cada elemento tiene un valor y un peso, solo que en el trabajo práctico en vez de ser elementos son batallas y el valor son el tiempo de cada una. Entonces para encontrar un orden correcto lo que hicimos es hacer la división entre
 
+T_i/B_i
+
 y ordenar las batallas de manera ascendente con el resultado de esta.
 
 Una vez que está ordenado, calculamos cuánto es la finalización de cada batalla, ya que por el enunciado del trabajo práctico dice “Si la primera batalla es la _j_, entonces _Fj_​=_tj_​, en cambio si la batalla _j_ se realiza justo después de la batalla _i_, entonces _Fj_​=_Fi_​+_tj_​.”
 
 Ya teniendo calculada la finalización de cada batalla, pasamos a realizar la sumatoria de estas
 
+∑_(i=0)^n▒〖F_i*B_i 〗
+
 quedando como resultado la mínima suma ponderada.
 
 Ejemplo, teniendo las batallas:
 
+T_i, B_i
 23, 65
 
 10, 323
@@ -68,26 +75,29 @@ Ejemplo, teniendo las batallas:
 
 Nos quedaría realizando la división
 
-23, 65,
+T_i, B_i, T/B
+23, 65, 23/65
 
-10, 323,
+10, 323, 10/323
 
-43, 923,
+43, 923, 43/923
 
-76, 33,
+76, 33, 76/33
 
-Y ordenando por
+Y ordenando por T/B
 
-10, 323,
+T_i, B_i, T/B
+10, 323, 10/323
 
-43, 923,
+43, 923, 43/923
 
-23, 65,
+23, 65, 23/65
 
-76, 33,
+76, 33, 76/33
 
 una vez ordenado calculamos los tiempos de finalización de estos.
 
+F_i, B_i, T/B
 10, 323, 10/323
 
 53, 923, 43/923
@@ -100,6 +110,7 @@ ya teniendo la finalización de cada batalla, realizamos la sumatoria
 
 quedando como resultado la mínima suma ponderada y el orden de las batallas de la forma
 
+T_i, B_i
 10, 323
 
 43, 923
@@ -174,6 +185,8 @@ Si los valores de son negativos, el problema y el algoritmo necesitan ser reeval
 En resumen, permitir valores negativos para ​, complicaría el problema y requeriría una reevaluación del algoritmo de optimización. Es posible que se necesite un enfoque completamente diferente para resolver el problema en este caso
 
 **5)**
+
+Los ejemplos de ejecucion del algoritmo se encuentran en las mediciones que realizamos, donde el script generator.py generan casos de prueba aleatorios con distintos tamaños de datos, ademas de los ya probistos por la catedra
 
 **6)**
 
