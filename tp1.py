@@ -1,4 +1,5 @@
 from functools import reduce
+import sys
 import os, time
 
 
@@ -88,12 +89,15 @@ def resolver_problema_batallas(data_filepath):
     return suma_ponderada, (end_time - start_time)
 
 
-def main():
+def tp1_solver(path, is_filename_only):
     try:
-        archivos_batallas = sorted( \
-            os.listdir(DATASET_PATH), \
-            key = lambda x: int(x.split(".txt")[0]) \
-        )
+        if is_filename_only:
+            archivos_batallas = [ path ]
+        else:
+            archivos_batallas = sorted( \
+                os.listdir(path), \
+                key = lambda x: int(x.split(".txt")[0]) \
+            )
     except:
         print("Could not find dataset folder.")
         return
@@ -101,16 +105,31 @@ def main():
     batallas = []
 
     for nombre_archivo in archivos_batallas:
-        suma_ponderada, tiempo = resolver_problema_batallas(f"{DATASET_PATH}\\{nombre_archivo}")
+        path_ = os.getcwd()
+        suma_ponderada, tiempo = resolver_problema_batallas(f"{path_}\\{nombre_archivo}")
         batallas.append((nombre_archivo.split(".")[0], tiempo))
 
+        nombre_archivo_ = nombre_archivo.split(".")[0] \
+            + "_solved." \
+            + nombre_archivo.split(".")[1]
+
         print(f"El orden de las batallas resuelto está \
-              en el archivo {nombre_archivo} y la suma ponderada \
+              en el archivo {nombre_archivo_} y la suma ponderada \
               de los tiempos de finalización es: {suma_ponderada}")
     
     print("batallas,time_in_seconds")
     for b in sorted(batallas, key=lambda x: int(x[0])):
         print(f"{b[0]},{b[1]}")
+
+
+def main():
+    if len(sys.argv) != 2:
+        print("Ejemplo de uso: python3 tp1.py 50000.txt")
+        return
+    
+    path = sys.argv[1]
+
+    tp1_solver(path, is_filename_only = True)
 
 
 if __name__ == "__main__":
