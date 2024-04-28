@@ -17,3 +17,7 @@ Al ejecutar el script, además de guardar las batallas ordenadas en un archivo n
 Al ejecutar el script, se generar archivos con batallas aleatorias, y luego se miden los tiempos del algoritmo para esos archivos.
 
 Los resultados se imprimen por consola.
+
+## Ejecutar las pruebas de la cátedra
+
+<code>python tp1_catedra_tests.py</code>
