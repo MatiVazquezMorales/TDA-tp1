@@ -127,6 +127,10 @@ def main():
         print("Ejemplo de uso: python3 tp1.py 50000.txt")
         return
     
+    if not sys.argv[1].split(".")[0].isnumeric():
+        print("Ejemplo de uso: python3 tp1.py 50000.txt")
+        return
+    
     path = sys.argv[1]
 
     tp1_solver(path, is_filename_only = True)
