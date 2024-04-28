@@ -9,10 +9,6 @@ BATALLAS = "batallas.txt"
 SEPARADOR_BATALLAS = ","
 HEADER_BATALLAS = "T_i,B_i"
 
-# "generated" -> using generator.py
-DATASET_PATH = "generated"
-# DATASET_PATH = f"tests\\data"
-
 
 #Leer el archivo txt para almacenar los valores en una lista de lista
 def leer_batallas(batallas, nombre_de_archivo):
@@ -93,11 +89,13 @@ def tp1_solver(path, is_filename_only):
     try:
         if is_filename_only:
             archivos_batallas = [ path ]
+            path_ = os.getcwd()
         else:
             archivos_batallas = sorted( \
                 os.listdir(path), \
                 key = lambda x: int(x.split(".txt")[0]) \
             )
+            path_ = path
     except:
         print("Could not find dataset folder.")
         return
@@ -105,7 +103,6 @@ def tp1_solver(path, is_filename_only):
     batallas = []
 
     for nombre_archivo in archivos_batallas:
-        path_ = os.getcwd()
         suma_ponderada, tiempo = resolver_problema_batallas(f"{path_}\\{nombre_archivo}")
         batallas.append((nombre_archivo.split(".")[0], tiempo))
 

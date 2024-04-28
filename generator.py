@@ -1,4 +1,5 @@
 import random, os
+from tp1 import tp1_solver
 
 GENERATED_DATA_PATH = "generated"
 
@@ -35,6 +36,8 @@ def main():
         random_pairs = generate_random_pairs(a_)
         write_to_file(a_, random_pairs)
         print(f"{a_} pairs of random numbers have been generated and written to {a_}.txt.")
+
+    tp1_solver(GENERATED_DATA_PATH, is_filename_only=False)
 
 if __name__ == "__main__":
     main()
